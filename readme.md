@@ -54,7 +54,7 @@ These cons are on the core roadmap and will be resolved in the near future. Howe
 
 <br><hr><br>
 
-
+ 
 ## Usage
 - `curl https://install.meteor.com/ | sh` [more info](https://www.meteor.com/install)  
 - `make dev` or `meter  --settings '.config/devel/settings.json'`
