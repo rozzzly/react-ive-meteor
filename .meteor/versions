@@ -11,7 +11,7 @@ boilerplate-generator@1.0.3
 callback-hook@1.0.3
 check@1.0.5
 coffeescript@1.0.6
-cosmos:browserify@0.1.4
+cosmos:browserify@0.3.0
 ddp@1.1.0
 deps@1.0.7
 ejson@1.0.6
@@ -35,7 +35,7 @@ matb33:collection-hooks@0.7.13
 meteor@1.1.6
 meteor-platform@1.2.2
 meteorhacks:flow-layout@1.4.0
-meteorhacks:flow-router@1.9.0
+meteorhacks:flow-router@1.16.2
 minifiers@1.1.5
 minimongo@1.0.8
 mobile-status-bar@1.0.3

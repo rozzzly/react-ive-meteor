@@ -2,42 +2,42 @@
 /* jshint maxlen: false */
 
 FeedComments = React.createClass({
-  render() {
-    // TODO breakout form into sep. component
-    return (
-      <div className='feed-item__comments'>
+	render() {
+		// TODO breakout form into sep. component
+		return (
+			<div className='feed-item__comments'>
 
-        {
-          this.props.comments.map(comment => {
-            return <CommentItem key={comment._id} {...comment} />;
-          })
-        }
+				{
+					this.props.comments.map(comment => {
+						return <CommentItem key={comment._id} {...comment} />;
+					})
+				}
 
-        <form className='comment-form'
-          onSubmit={ this.createComment }>
+				<form className='comment-form'
+					  onSubmit={ this.createComment }>
 
-          <input type='text'
-            placeholder='Write a comment'
-          />
-        </form>
+					<input type='text'
+						   placeholder='Write a comment'
+						/>
+				</form>
 
-      </div>
-    );
-  },
+			</div>
+		);
+	},
 
-  createComment(e) {
-    e.preventDefault();
-    if (User.loggedOut()) return alert("You must be logged in to comment!");
+	createComment(e) {
+		e.preventDefault();
+		if(User.loggedOut()) return alert("You must be logged in to comment!");
 
-    this.props.createComment({
-      username: User.username(),
-      desc: e.target.firstChild.value,
-      ownerId: User.id(),
-      postId: this.props._id,
-    });
+		this.props.createComment({
+			username: User.username(),
+			desc: e.target.firstChild.value,
+			ownerId: User.id(),
+			postId: this.props._id,
+		});
 
-    e.target.reset();
-  }
+		e.target.reset();
+	}
 
 });
 

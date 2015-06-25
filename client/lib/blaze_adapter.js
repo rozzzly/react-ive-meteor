@@ -9,12 +9,10 @@ Template.ReactComponent.rendered = function() {
 	}
 
 	// XXX TODO: not only DIVs
-	if(this.firstNode !== this.lastNode)
-	{
+	if(this.firstNode !== this.lastNode) {
 		throw new Error("Expected to find one element");
 	}
-	if(!this.firstNode.tagName === "DIV")
-	{
+	if(!this.firstNode.tagName === "DIV") {
 		throw new Error("Expected to find one DIV element");
 	}
 

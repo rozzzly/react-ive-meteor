@@ -10,7 +10,7 @@ this.FeedItem = React.createClass({
 	mixins: [ReactMeteor.Mixin, PureRender],
 
 	propTypes: {
-		desc: React.PropTypes.string.isRequired,
+		desc: React.PropTypes.string.isRequired
 	},
 
 	render() {
@@ -28,7 +28,7 @@ this.FeedItem = React.createClass({
 				<FeedComments {...this.props} />
 			</div>
 		);
-	},
+	}
 
 });
 
