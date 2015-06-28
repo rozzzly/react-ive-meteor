@@ -1,8 +1,9 @@
 Meteor.startup(function() {
-  console.log("Client Ready");
+	console.log("Client Ready");
+
 });
 
 Accounts.ui.config({
-  passwordSignupFields: 'USERNAME_ONLY'
+	passwordSignupFields: 'USERNAME_ONLY'
 });
 
