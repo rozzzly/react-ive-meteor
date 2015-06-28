@@ -1,0 +1,7 @@
+# don't include installed node_modules for obvious reasons
+node_modules
+
+# same as above(^), but for bower this time
+lib/bower/*
+!lib/bower/.gitkeep
+

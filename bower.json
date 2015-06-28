@@ -1,0 +1,31 @@
+{
+  "name": "react-ive-meteor",
+  "version": "0.0.0",
+  "homepage": "https://github.com/rozzzly/react-ive-meteor",
+  "authors": [
+    "rozzzly <pclienau@gmail.com>"
+  ],
+  "description": "bower file for the react-ive-meteor repository. This is linked to my fork but be sure to checkout the main repo as well https://github.com/AdamBrodzinski/react-ive-meteor",
+  "private": true,
+  "keywords": [
+    "react",
+    "meteor",
+    "real-time",
+    "chat",
+    "social",
+    "ddp",
+    "gui",
+    "ui"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "ionsound": "~3.0.4"
+  }
+}
