@@ -12,7 +12,6 @@ this.Header = React.createClass({
 		var div = document.getElementById('loginContainer');
 		Blaze.renderWithData(Template.loginButtons, {align: 'right'}, div);
 
-
 	},
 
 	render() {

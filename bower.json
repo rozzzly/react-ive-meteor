@@ -29,8 +29,14 @@
 	"overrides": {
 		"ionsound": {
 			"main": [
-				"js/ion.sound.js"
-			]
+				"js/ion.sound.js",
+                "sounds/water_droplet.aac",
+                "sounds/water_droplet.mp3",
+                "sounds/water_droplet.ogg",
+                "sounds/water_droplet_3.aac",
+                "sounds/water_droplet_3.mp3",
+                "sounds/water_droplet_3.ogg"
+            ]
 		}
 	},
 	"dependencies": {
