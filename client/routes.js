@@ -10,22 +10,22 @@
 
 FlowLayout.setRoot('body');
 
-FlowRouter.route('/',      { name: 'Home',  action: renderView });
-FlowRouter.route('/about', { name: 'About', action: renderView });
-FlowRouter.route('/feed',  { name: 'Feed',  action: renderView });
+FlowRouter.route('/', {name: 'Home', action: renderView});
+FlowRouter.route('/about', {name: 'About', action: renderView});
+FlowRouter.route('/feed', {name: 'Feed', action: renderView});
 
 
 // helper to layout the parent page view and log debug data
 function renderView() {
-  renderMainLayoutWith(this.name);
-  console.log("[FlowRouter] params", this.name, FlowRouter._current.params);
+	renderMainLayoutWith(this.name);
+	console.log("[FlowRouter] params", this.name, FlowRouter._current.params);
 }
 
 function renderMainLayoutWith(view) {
-  FlowLayout.render('mainLayout', {
-    top: "Header",
-    main: view,
-    bottom: "Footer"
-  });
+	FlowLayout.render('mainLayout', {
+		top: "Header",
+		main: view,
+		bottom: "Footer"
+	});
 }
 

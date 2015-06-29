@@ -11,23 +11,25 @@
 
 
 var schema = {
-  createdAt: Date,
-  ownerId: String,
-  postId: String,
-  desc: String,
-  username: String,
+	createdAt: Date,
+	ownerId: String,
+	postId: String,
+	desc: String,
+	username: String,
 };
 
 
-PostComments = new Mongo.Collection('postComments', {transform: function(doc) {
-  // make documents inherit our model, no IE8 support with __proto__
-  doc.__proto__ = PostComment;
-  return doc;
-}});
+PostComments = new Mongo.Collection('postComments', {
+	transform: function(doc) {
+		// make documents inherit our model, no IE8 support with __proto__
+		doc.__proto__ = PostComment;
+		return doc;
+	}
+});
 
 // increment comment count on new comment
-PostComments.after.insert(function (userId, doc) {
-  Post.increment(doc.postId, 'commentCount');
+PostComments.after.insert(function(userId, doc) {
+	Post.increment(doc.postId, 'commentCount');
 });
 
 
@@ -52,17 +54,17 @@ PostComments.after.insert(function (userId, doc) {
 //    PostComment.update('123', {desc: 'Goodbye'});
 //
 PostComment = {
-  create: function(data, callback) {
-    return Meteor.call('PostComment.create', data, callback);
-  },
+	create: function(data, callback) {
+		return Meteor.call('PostComment.create', data, callback);
+	},
 
-  update: function(data, callback) {
-    return Meteor.call('PostComment.update', this._id, data, callback);
-  },
+	update: function(data, callback) {
+		return Meteor.call('PostComment.update', this._id, data, callback);
+	},
 
-  destroy: function(callback) {
-    return Meteor.call('PostComment.destroy', this._id, callback);
-  },
+	destroy: function(callback) {
+		return Meteor.call('PostComment.destroy', this._id, callback);
+	},
 };
 
 
@@ -78,71 +80,71 @@ PostComment = {
 // can be created on the client folder to re-enable latency compensation.
 //
 Meteor.methods({
-  /**
-   * Creates a PostComment document
-   * @method
-   * @param {object} data - data to insert
-   * @returns {string} of document id
-   */
-  "PostComment.create": function(data) {
-    var docId;
-    if (User.loggedOut()) throw new Meteor.Error(401, "Login required");
+	/**
+	 * Creates a PostComment document
+	 * @method
+	 * @param {object} data - data to insert
+	 * @returns {string} of document id
+	 */
+	"PostComment.create": function(data) {
+		var docId;
+		if(User.loggedOut()) throw new Meteor.Error(401, "Login required");
 
-    data.ownerId = User.id();
-    data.createdAt = new Date();
+		data.ownerId = User.id();
+		data.createdAt = new Date();
 
-    // Schema check, throws if it doesn't match
-    check(data, schema);
+		// Schema check, throws if it doesn't match
+		check(data, schema);
 
-    docId = PostComments.insert(data);
+		docId = PostComments.insert(data);
 
-    console.log("[PostComment.create]", docId);
-    return docId;
-  },
-
-
-  /**
-   * Updates a PostComment document using $set
-   * @method
-   * @param {string} docId - The doc id to update
-   * @param {object} data - data to update
-   * @returns {number} of documents updated (0|1)
-   */
-  "PostComment.update": function(docId, data) {
-    var optional = Match.Optional;
-    var count, selector;
-
-    if (User.loggedOut()) throw new Meteor.Error(401, "Login required");
-    check(docId, String);
-    data.updatedAt = new Date();
-    check(data, schema); //throws if it doesn't match
-
-    // if caller doesn't own doc, update will fail because fields won't match
-    selector = {_id: docId, ownerId: User.id()};
-
-    count = PostComments.update(selector, {$set: data});
-
-    console.log("[PostComment.update]", count, docId);
-    return count;
-  },
+		//console.log("[PostComment.create]", docId);
+		return docId;
+	},
 
 
-  /**
-   * Destroys a PostComment
-   * @method
-   * @param {string} docId - The doc id to destroy
-   * @returns {number} of documents destroyed (0|1)
-   */
-  "PostComment.destroy": function(docId) {
-    check(docId, String);
+	/**
+	 * Updates a PostComment document using $set
+	 * @method
+	 * @param {string} docId - The doc id to update
+	 * @param {object} data - data to update
+	 * @returns {number} of documents updated (0|1)
+	 */
+	"PostComment.update": function(docId, data) {
+		var optional = Match.Optional;
+		var count, selector;
 
-    if (User.loggedOut()) throw new Meteor.Error(401, "Login required");
+		if(User.loggedOut()) throw new Meteor.Error(401, "Login required");
+		check(docId, String);
+		data.updatedAt = new Date();
+		check(data, schema); //throws if it doesn't match
 
-    // if caller doesn't own doc, destroy will fail because fields won't match
-    var count = PostComments.remove({_id: docId, ownerId: User.id()});
+		// if caller doesn't own doc, update will fail because fields won't match
+		selector = {_id: docId, ownerId: User.id()};
 
-    console.log("[PostComment.destroy]", count);
-    return count;
-  }
+		count = PostComments.update(selector, {$set: data});
+
+		//console.log("[PostComment.update]", count, docId);
+		return count;
+	},
+
+
+	/**
+	 * Destroys a PostComment
+	 * @method
+	 * @param {string} docId - The doc id to destroy
+	 * @returns {number} of documents destroyed (0|1)
+	 */
+	"PostComment.destroy": function(docId) {
+		check(docId, String);
+
+		if(User.loggedOut()) throw new Meteor.Error(401, "Login required");
+
+		// if caller doesn't own doc, destroy will fail because fields won't match
+		var count = PostComments.remove({_id: docId, ownerId: User.id()});
+
+		//console.log("[PostComment.destroy]", count);
+		return count;
+	}
 });
 

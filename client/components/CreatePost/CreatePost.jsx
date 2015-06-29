@@ -29,7 +29,7 @@ class CreatePost extends React.Component {
 		if(User.loggedOut()) return alert("You must be logged in to post!");
 		if(!this.state.desc) return;
 
-		ion.sound.play("msg_outgoing");
+		ion.sound.play("water_droplet_3");
 
 		Post.create({
 			desc: this.state.desc,

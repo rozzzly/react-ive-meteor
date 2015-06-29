@@ -1,17 +1,11 @@
 /*global Blaze */
 
 this.Header = React.createClass({
-
-	componentWillMount() {
-
-	},
-
 	componentDidMount() {
 		// insert Blaze login buttons, see this if you do this a lot
 		// https://gist.github.com/emdagon/944472f39b58875045b6
 		var div = document.getElementById('loginContainer');
 		Blaze.renderWithData(Template.loginButtons, {align: 'right'}, div);
-
 	},
 
 	render() {
@@ -35,3 +29,4 @@ this.Header = React.createClass({
 		);
 	}
 });
+

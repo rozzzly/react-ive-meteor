@@ -15,77 +15,77 @@
 /*global Posts, FeedList */
 
 this.FeedData = React.createClass({
-  mixins: [ReactMeteor.Mixin],
+	mixins: [ReactMeteor.Mixin],
 
-  getInitialState() {
-    return {
-      recordCount: {
-        posts: 5
-        //postComments: 5 XXX no comment limit
-      },
+	getInitialState() {
+		return {
+			recordCount: {
+				posts: 5
+				//postComments: 5 XXX no comment limit
+			},
 
-      // TODO have this component grab children's needed fields
-      // from their statics object
-      fieldsNeeded: {
-        posts: {
-          _id: true,
-          desc: true,
-          likeCount: true,
-          commentCount: true,
-          userName: true,
-          createdAt: true,
-          ownerId: true,
-        },
-        postComments: {
-          _id: true,
-          createdAt: true,
-          username: true,
-          desc: true,
-          postId: true,
-        }
-      }
-    };
-  },
+			// TODO have this component grab children's needed fields
+			// from their statics object
+			fieldsNeeded: {
+				posts: {
+					_id: true,
+					desc: true,
+					likeCount: true,
+					commentCount: true,
+					userName: true,
+					createdAt: true,
+					ownerId: true
+				},
+				postComments: {
+					_id: true,
+					createdAt: true,
+					username: true,
+					desc: true,
+					postId: true,
+				}
+			}
+		};
+	},
 
-  componentWillMount() {
-    this.startMeteorSubscriptions();
-  },
-
-
-  // subscribe to a reactive stream of data from
-  // publication at:  server/publications/posts.js
-  startMeteorSubscriptions() {
-    // pass in postIds so we can subscribe to comments for all posts in
-    // local cache, TODO, fix mongo query to do this all at one time
-    return Meteor.subscribe("feed", this.state.fieldsNeeded,
-                            this.state.recordCount, this.state.postIds);
-  },
+	componentWillMount() {
+		this.startMeteorSubscriptions();
+	},
 
 
-  // track changes in MiniMongo data store and merge with this.state
-  // when they change. If new data is sent down from the publication
-  // this will still update to keep in sync with this.state
-  getMeteorState: function() {
-    return {
-      postItems: Posts.find({}, {sort: {createdAt: -1}}).fetch() || [],
-      allComments: PostComments.find().fetch(),
-      postIds: Posts.find({}, {fields: {_id: 1}}).map(doc => doc._id)
-    };
-  },
+	// subscribe to a reactive stream of data from
+	// publication at:  server/publications/posts.js
+	startMeteorSubscriptions() {
+		// pass in postIds so we can subscribe to comments for all posts in
+		// local cache, TODO, fix mongo query to do this all at one time
+		return Meteor.subscribe("feed", this.state.fieldsNeeded,
+								this.state.recordCount, this.state.postIds);
+	},
 
-  // pass this down to children so they can increase the limit when needed
-  incrementLimit() {
-    var limits = _.extend({}, this.state.recordCount);
-    limits.posts = limits.posts + 5;
 
-    this.setState({recordCount: limits });
-    return this.state;
-  },
+	// track changes in MiniMongo data store and merge with this.state
+	// when they change. If new data is sent down from the publication
+	// this will still update to keep in sync with this.state
+	getMeteorState: function() {
+		return {
+			postItems: Posts.find({}, {sort: {createdAt: -1}}).fetch() || [],
+			allComments: PostComments.find().fetch(),
+			postIds: Posts.find({}, {fields: {_id: 1}}).map(doc => doc._id)
+		};
+	},
 
-  render() {
-    // XXX workaround for first render comments not updating, need to look at mixin
-    this.startMeteorSubscriptions();
-    return <FeedList incrementLimit={this.incrementLimit} postItems={this.state.postItems} {...this.props} />;
-  }
+	// pass this down to children so they can increase the limit when needed
+	incrementLimit() {
+		var limits = _.extend({}, this.state.recordCount);
+		limits.posts = limits.posts + 5;
+
+		this.setState({recordCount: limits});
+		return this.state;
+	},
+
+	render() {
+		// XXX workaround for first render comments not updating, need to look at mixin
+		this.startMeteorSubscriptions();
+		return <FeedList incrementLimit={this.incrementLimit} postItems={this.state.postItems} {...this.props} />;
+	}
 });
 

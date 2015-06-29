@@ -1,6 +1,5 @@
 Meteor.startup(function() {
 	console.log("Client Ready");
-
 });
 
 Accounts.ui.config({
