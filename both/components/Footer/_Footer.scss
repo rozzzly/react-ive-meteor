@@ -1,0 +1,20 @@
+.footer {
+  background: #2D2D2D;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 50px;
+
+  a {
+    color: #767676;
+    &:hover { color: darken(white, 20%); }
+    &:active { color: darken(white, 30%); }
+  }
+
+  .nav {
+    margin-top: 5px;
+    a { margin-right: 15px; }
+  }
+}
+
